@@ -1,20 +1,24 @@
 <!-- Describe task in general -->
 <!-- <img src="{{MEDIA_CONVERT}}title.png" class="title_img" /> -->
 <p style="text-align: justify;">
-    Sum two passed ints
+    The Master created a board game that consists of filling a rectangular (not necessary square) board with white and black stones. The cells in the first row and first column are randomly filled with white (0) or black (1) stones. The remaining cells are filled according to the rule that the color of a cell depends on the color of the three cells adjacent to it (top, left, top-left): if there are more white stones than black stones, the cell is filled with a white stone, and vice versa.
 </p>
 
 <p style="text-align: center;">
-    <img  title="example" src="{{MEDIA}}example.png" alt="example" style="max-height: 83px"/>
+    <img  title="example" src="{{MEDIA}}exstones-placing.svg" alt="example" style="max-height: 200px"/>
+</p>
+
+<p style="text-align: justify;">
+    You are given the first row and column and your program must calculate the color of the stone in the bottom right cell.
 </p>
 
 <!-- Explain input and output values -->
 <p>
-    <strong>Input:</strong> Two arguments. Both are ints.
+    <strong>Input:</strong> Two <span translate="repeat">{% if is_js %}arrays{% else %}lists{% endif %}</span> of integers <span translate="no">({% if is_js %}number{% else %}int{% endif %})</span>.
 </p>
 
 <p>
-    <strong>Output:</strong> Int. 
+    <strong>Output:</strong> Integer. 
 </p>
 
 
@@ -34,9 +38,10 @@
 
 <!-- Here you can explain some constraints for input-->
 <!-- The section is optional -->
-<!-- <p>
+<p>
     <strong>Preconditions:</strong>
     <ul>
-    <li><i>both given ints should be between -1000 and 1000</i></li>
+        <li><i>len(row), len(col) > 1</i>;</li>
+        <li><i>row[0] == col[0]</i>.</li>
     </ul>
-</p> -->
+</p>
