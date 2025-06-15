@@ -1,0 +1,47 @@
+<!-- Describe task in general -->
+<!-- <img src="{{MEDIA_CONVERT}}title.png" class="title_img" /> -->
+<p style="text-align: justify;">
+    Mistrz stworzył grę planszową, która polega na wypełnieniu prostokątnej (nie musi być kwadratowa) planszy białymi i czarnymi kamieniami. Pola w pierwszym rzędzie i pierwszej kolumnie są losowo wypełniane białymi (0) lub czarnymi (1) kamieniami. Pozostałe komórki są wypełniane zgodnie z zasadą, że kolor komórki zależy od koloru trzech sąsiadujących z nią komórek (góra, lewo, góra-lewo): jeśli jest więcej białych kamieni niż czarnych, komórka jest wypełniana białym kamieniem i odwrotnie.
+</p>
+
+<p style="text-align: center;">
+    <img  title="example" src="{{MEDIA}}stones-placing.svg" alt="example" style="max-height: 200px"/>
+</p>
+
+<p style="text-align: justify;">
+    Otrzymują Państwo pierwszy wiersz i kolumnę, a Państwa program musi obliczyć kolor kamienia w prawej dolnej komórce.
+</p>
+
+<!-- Explain input and output values -->
+<p>
+   <strong>Dane wejściowe:</strong> Dwie tablice {% if is_js %}{% else %} listy{% endif %} <span>({% if is_js %}arrays{% else %}lists{% endif %})</span> liczb całkowitych <span>({% if is_js %}number{% else %}int{% endif %})</span>.
+</p>
+
+<p>
+   <strong>Wyjście:</strong> Liczba całkowita. 
+</p>
+
+
+<p>
+    <strong>Przykłady:</strong>
+</p>
+
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<!-- <p class="for_info_only">
+
+    <strong>How it’s used:</strong>
+    <i>(math is used everywhere)</i>
+</p> -->
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<p>
+    <strong>Warunki wstępne:</strong>
+    <ul>
+        <li><i>len(row), len(col) &gt; 1</i>;</li>
+        <li><i>row[0] == col[0]</i>.</li>
+    </ul>
+</p>
