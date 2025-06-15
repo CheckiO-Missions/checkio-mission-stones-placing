@@ -1,0 +1,47 @@
+<!-- Describe task in general -->
+<!-- <img src="{{MEDIA_CONVERT}}title.png" class="title_img" /> -->
+<p style="text-align: justify;">
+    Le maître a créé un jeu de société qui consiste à remplir un plateau rectangulaire (pas nécessairement carré) avec des pierres blanches et noires. Les cases de la première ligne et de la première colonne sont remplies au hasard avec des pierres blanches (0) ou noires (1). Les autres cases sont remplies selon la règle que la couleur d'une case dépend de la couleur des trois cases qui lui sont adjacentes (en haut, à gauche, en haut à gauche): s'il y a plus de pierres blanches que de pierres noires, la case est remplie avec une pierre blanche, et vice versa.
+</p>
+
+<p style="text-align: center;">
+    <img  title="example" src="{{MEDIA}}stones-placing.svg" alt="example" style="max-height: 200px"/>
+</p>
+
+<p style="text-align: justify;">
+    On vous donne la première ligne et la première colonne et votre programme doit calculer la couleur de la pierre dans la cellule en bas à droite.
+</p>
+
+<!-- Explain input and output values -->
+<p>
+   <strong>Entrée:</strong> Deux tableaux {% if is_js %}{% else %} listes{% endif %} <span>({% if is_js %}arrays{% else %}lists{% endif %})</span> d'entiers <span>({% if is_js %}number{% else %}int{% endif %})</span>.
+</p>
+
+<p>
+   <strong>Sortie:</strong> Entier. 
+</p>
+
+
+<p>
+    <strong>Exemples:</strong>
+</p>
+
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<!-- <p class="for_info_only">
+
+    <strong>How it’s used:</strong>
+    <i>(math is used everywhere)</i>
+</p> -->
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<p>
+    <strong>Conditions préalables:</strong>
+    <ul>
+        <li><i>len(row), len(col) &gt; 1</i>;</li>
+        <li><i>row[0] == col[0]</i>.</li>
+    </ul>
+</p>
