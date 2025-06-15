@@ -1,0 +1,47 @@
+<!-- Describe task in general -->
+<!-- <img src="{{MEDIA_CONVERT}}title.png" class="title_img" /> -->
+<p style="text-align: justify;">
+    Der Meister hat ein Brettspiel entwickelt, bei dem es darum geht, ein rechteckiges (nicht unbedingt quadratisches) Brett mit weißen und schwarzen Steinen zu füllen. Die Zellen in der ersten Reihe und der ersten Spalte werden zufällig mit weißen (0) oder schwarzen (1) Steinen gefüllt. Die übrigen Zellen werden nach der Regel gefüllt, dass die Farbe einer Zelle von der Farbe der drei benachbarten Zellen (oben, links, oben links) abhängt: Wenn es mehr weiße als schwarze Steine gibt, wird die Zelle mit einem weißen Stein gefüllt und umgekehrt.
+</p>
+
+<p style="text-align: center;">
+    <img  title="example" src="{{MEDIA}}stones-placing.svg" alt="example" style="max-height: 200px"/>
+</p>
+
+<p style="text-align: justify;">
+    Sie erhalten die erste Zeile und Spalte und Ihr Programm muss die Farbe des Steins in der Zelle unten rechts berechnen.
+</p>
+
+<!-- Explain input and output values -->
+<p>
+   <strong>Eingabe:</strong> Zwei {% if is_js %}Arrays{% else %}Listen{% endif %} <span>({% if is_js %}arrays{% else %}lists{% endif %})</span> von ganzen Zahlen <span>({% if is_js %}number{% else %}int{% endif %})</span>.
+</p>
+
+<p>
+   <strong>Ausgabe:</strong> Ganzzahl. 
+</p>
+
+
+<p>
+    <strong>Beispiele:</strong>
+</p>
+
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<!-- <p class="for_info_only">
+
+    <strong>How it’s used:</strong>
+    <i>(math is used everywhere)</i>
+</p> -->
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<p>
+    <strong>Vorbedingungen:</strong>
+    <ul>
+        <li><i>len(row), len(col) &gt; 1</i>;</li>
+        <li><i>zeile[0] == Spalte[0]</i>.</li>
+    </ul>
+</p>
