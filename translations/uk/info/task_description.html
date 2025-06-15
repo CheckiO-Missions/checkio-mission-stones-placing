@@ -1,0 +1,47 @@
+<!-- Describe task in general -->
+<!-- <img src="{{MEDIA_CONVERT}}title.png" class="title_img" /> -->
+<p style="text-align: justify;">
+    Майстер створив настільну гру, яка полягає у заповненні прямокутної (не обов'язково квадратної) дошки білими та чорними камінцями. Клітинки у першому рядку та першому стовпчику випадковим чином заповнюються білими (0) або чорними (1) камінчиками. Решта клітинок заповнюються за правилом, згідно з яким колір клітинки залежить від кольору трьох сусідніх з нею клітинок (зверху, зліва, зверху-зліва): якщо білих камінців більше, ніж чорних, то клітинка заповнюється білим камінцем, і навпаки.
+</p>
+
+<p style="text-align: center;">
+    <img  title="example" src="{{MEDIA}}stones-placing.svg" alt="example" style="max-height: 200px"/>
+</p>
+
+<p style="text-align: justify;">
+    Вам задано перший рядок і стовпчик, і ваша програма повинна обчислити колір камінця у правій нижній комірці.
+</p>
+
+<!-- Explain input and output values -->
+<p>
+   <strong>Вхідні дані:</strong> Два масиви {% if is_js %}{% else %} містять списки{% endif %} <span>({% if is_js %}arrays{% else %}lists{% endif %})</span> цілих чисел <span>({% if is_js %}number{% else %}int{% endif %})</span>.
+</p>
+
+<p>
+   <strong>Вивести:</strong> Ціле число. 
+</p>
+
+
+<p>
+    <strong>Приклади:</strong>
+</p>
+
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<!-- <p class="for_info_only">
+
+    <strong>How it’s used:</strong>
+    <i>(math is used everywhere)</i>
+</p> -->
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<p>
+    <strong>Передумови:</strong>
+    <ul>
+        <li><i>len(row), len(col) &gt; 1</i>;</li>
+        <li><i>row[0] == col[0]</i>.</li>
+    </ul>
+</p>
