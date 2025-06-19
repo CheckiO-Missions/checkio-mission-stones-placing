@@ -1,3 +1,174 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<style>
+        /* Basic styling for the container */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: sans-serif;
+        }
+        #canvas_container {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+</style>
+    
+<div id="canvas_container"></div>
+
+<script>
+$(document).ready(function() {
+    // 1. Setup - Define constants and initialize Raphael canvas
+    const paperSize = 400;
+    const padding = 50;
+    const paper = Raphael("canvas_container", paperSize, paperSize);
+
+    // Color definitions
+    const lightColor = "#d3d3d3"; // Light grey
+    const darkColor = "#505050";  // Dark grey
+    const strokeColor = "#333";
+    const triangleColor = "orange";
+    const outerSquareFill = "#C9EBFB";
+    const outerSquareStroke = "#006Ca9";
+
+
+    // Geometry definitions
+    const cornerRadius = 65; // UPDATED: Matched to circle radius
+    const circleRadius = 65; // UPDATED: Made circles smaller
+    const circleStrokeWidth = 2;
+    const mainRectX = padding / 2;
+    const mainRectY = padding / 2;
+    const mainRectWidth = paperSize - padding;
+    const mainRectHeight = paperSize - padding;
+    
+    // Circle center positions
+    const pos1 = { x: padding + circleRadius, y: padding + circleRadius };
+    const pos2 = { x: paperSize - padding - circleRadius, y: padding + circleRadius };
+    const pos3 = { x: padding + circleRadius, y: paperSize - padding - circleRadius };
+    const pos4 = { x: paperSize - padding - circleRadius, y: paperSize - padding - circleRadius };
+
+
+    // 2. Draw the main container square
+    paper.rect(mainRectX, mainRectY, mainRectWidth, mainRectHeight, cornerRadius).attr({
+        stroke: outerSquareStroke, // Updated stroke color
+        "stroke-width": 4,
+        fill: outerSquareFill // Updated fill color
+    });
+
+    // 3. Circle States and Drawing
+    // We'll store the state ('dark' or 'light') in a data attribute on the Raphael objects.
+    
+    // Draw the four main circles
+    const circle1 = paper.circle(pos1.x, pos1.y, circleRadius).data("state", "dark"); // Start with one dark
+    const circle2 = paper.circle(pos2.x, pos2.y, circleRadius).data("state", "light");
+    const circle3 = paper.circle(pos3.x, pos3.y, circleRadius).data("state", "light");
+    const circle4_result = paper.circle(pos4.x, pos4.y, circleRadius); // The result circle
+
+    const clickableCircles = [circle1, circle2, circle3];
+    const circleTriangleMap = new Map(); // To link circles to their triangles
+    
+    clickableCircles.forEach(function(circle) {
+        circle.attr({
+            "stroke-width": circleStrokeWidth,
+            stroke: strokeColor,
+            cursor: "pointer"
+        });
+    });
+
+    // 4. Triangle Drawing
+    const trianglePath = "M-10,10 L10,10 L0,-10 Z";
+    
+    // Create triangles and map them to their source circles
+    circleTriangleMap.set(circle1, paper.path(trianglePath).attr({ fill: triangleColor, stroke: "none" }));
+    circleTriangleMap.set(circle2, paper.path(trianglePath).attr({ fill: triangleColor, stroke: "none" }));
+    circleTriangleMap.set(circle3, paper.path(trianglePath).attr({ fill: triangleColor, stroke: "none" }));
+
+
+    // 5. Core Logic and Update Function
+    function updateState() {
+        let darkCount = 0;
+
+        // Update colors of clickable circles and count dark ones
+        clickableCircles.forEach(function(circle) {
+            const state = circle.data("state");
+            if (state === "dark") {
+                circle.attr("fill", darkColor);
+                darkCount++;
+            } else {
+                circle.attr("fill", lightColor);
+            }
+        });
+
+        // Determine the result circle's state
+        const isResultDark = darkCount >= 2;
+
+        // Update the result circle's color
+        if (isResultDark) {
+            circle4_result.attr("fill", darkColor);
+        } else {
+            circle4_result.attr("fill", lightColor);
+        }
+        circle4_result.attr({"stroke-width": circleStrokeWidth, stroke: strokeColor});
+
+
+        // Update triangle visibility based on the new logic
+        clickableCircles.forEach(function(circle) {
+            const circleState = circle.data("state");
+            const triangle = circleTriangleMap.get(circle);
+
+            // Determine if the triangle should be shown
+            // If result is dark, show triangles from dark circles.
+            // If result is light, show triangles from light circles.
+            const showTriangle = (isResultDark && circleState === 'dark') || (!isResultDark && circleState === 'light');
+            
+            updateTriangle(triangle, circle, circle4_result, showTriangle);
+        });
+    }
+    
+    function updateTriangle(triangle, fromCircle, toCircle, isVisible) {
+        if (isVisible) {
+            const startPos = {x: fromCircle.attr("cx"), y: fromCircle.attr("cy")};
+            const endPos = {x: toCircle.attr("cx"), y: toCircle.attr("cy")};
+
+            // Calculate midpoint and angle
+            const midX = (startPos.x + endPos.x) / 2;
+            const midY = (startPos.y + endPos.y) / 2;
+            const angle = Math.atan2(endPos.y - startPos.y, endPos.x - startPos.x) * (180 / Math.PI);
+
+            // Apply transformation and ensure it's shown
+            triangle.transform(`T${midX},${midY}R${angle + 90}`);
+            triangle.show();
+        } else {
+            triangle.hide();
+        }
+    }
+
+
+    // 6. Event Handling
+    clickableCircles.forEach(function(circle) {
+        circle.click(function() {
+            // Toggle the state
+            if (this.data("state") === "light") {
+                this.data("state", "dark");
+            } else {
+                this.data("state", "light");
+            }
+            // Update the entire view
+            updateState();
+        });
+    });
+
+    // 7. Initial Call
+    // Run the update function once on load to set initial colors and states.
+    updateState(); 
+});
+</script>    
+    
 <!-- Describe task in general -->
 <!-- <img src="{{MEDIA_CONVERT}}title.png" class="title_img" /> -->
 <p style="text-align: justify;">
